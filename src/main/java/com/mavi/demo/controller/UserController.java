@@ -29,16 +29,15 @@ public class UserController {
   ObjectMappingService om;
 
   @GetMapping("/findAll")
-  public List<Object> findAll() {
-
-    return userRepository.findAll().stream().map(x -> {
+  public ResponseEntity<List<Object>> findAll() {
+    return new ResponseEntity<>(userRepository.findAll().stream().map(x -> {
       try {
         return om.mapToObject(om.writeValueAsString(x), UserDTO.class);
       } catch (JsonProcessingException e) {
         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
             "Return objects can not mapped.");
       }
-    }).collect(Collectors.toList());
+    }).collect(Collectors.toList()), HttpStatus.OK);
   }
 
   @GetMapping("/listAllUsers")
@@ -47,8 +46,9 @@ public class UserController {
   }
 
   @GetMapping("/getUser/{userName}")
-  public ResponseEntity<UserDTO> getUser(@PathVariable("userName") String userName) {
-    return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.OK);
+  public ResponseEntity<UserDTO> getUser(@PathVariable("userName") String userName) throws JsonProcessingException {
+    return new ResponseEntity<>((UserDTO) om.mapToObject(om.writeValueAsString(userRepository.findByUsername(userName)),
+        UserDTO.class), HttpStatus.OK);
   }
 
 }
