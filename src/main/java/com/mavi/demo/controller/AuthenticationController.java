@@ -1,12 +1,11 @@
 package com.mavi.demo.controller;
 
-import static org.springframework.http.ResponseEntity.ok;
-
-
 import com.mavi.demo.dto.AuthenticationRequestDTO;
 import com.mavi.demo.dto.RefreshTokenRequestDTO;
 import com.mavi.demo.repository.UserRepository;
 import com.mavi.demo.security.jwt.JwtTokenProvider;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController
@@ -63,7 +60,7 @@ public class AuthenticationController {
     try {
       String username = data.getUsername();
 
-      if(jwtTokenProvider.validateToken(data.getToken()) ) {
+      if (jwtTokenProvider.validateToken(data.getToken())) {
 
         String token = jwtTokenProvider
             .createToken(username,

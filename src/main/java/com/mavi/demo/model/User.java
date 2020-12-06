@@ -19,12 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Data
+@ToString
 @Builder
 @Table(name = "mavi_user")
 @NoArgsConstructor
@@ -40,6 +42,12 @@ public class User implements UserDetails {
 
   @NotEmpty
   private String password;
+
+  private String name;
+  private String surname;
+  private String addressDetail;
+  private String city;
+  private String phone;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default
