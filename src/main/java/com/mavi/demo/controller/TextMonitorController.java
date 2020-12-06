@@ -10,6 +10,6 @@ public class TextMonitorController {
 
   @GetMapping("/textMonitor")
   public ResponseEntity<String> getText() {
-    return new ResponseEntity<String>("Merhaba Mavidev, ben Cuneyt!", HttpStatus.OK);
+    return new ResponseEntity<>("Merhaba Mavidev, ben Cuneyt!", HttpStatus.OK);
   }
 }

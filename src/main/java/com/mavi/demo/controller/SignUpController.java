@@ -19,8 +19,7 @@ public class SignUpController {
 
   @PutMapping("/signUp")
   public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpDTO) {
-
     signUpService.signUp(signUpDTO);
-    return new ResponseEntity<String>("Success.", HttpStatus.OK);
+    return new ResponseEntity<>("Success.", HttpStatus.OK);
   }
 }
