@@ -29,7 +29,7 @@ public class SignUpServiceImpl implements SignUpService {
         signUpDTO.setPassword(passwordEncoder.encode(signUpDTO.getMatchingPassword()));
       }
       User newUser = (User) om.mapToObject(om.writeValueAsString(signUpDTO), User.class);
-      if(userRepository.findByUsername(newUser.getUsername()).isEmpty()) {
+      if (userRepository.findByUsername(newUser.getUsername()).isEmpty()) {
         userRepository.save(newUser);
       } else {
         throw new ResponseStatusException(HttpStatus.CONFLICT, "This user already exist.");

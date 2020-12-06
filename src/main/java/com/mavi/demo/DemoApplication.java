@@ -17,14 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(DemoApplication.class, args);
+  }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
 
 }
 
@@ -32,12 +32,12 @@ public class DemoApplication {
 @EnableJpaAuditing
 class DataJpaConfig {
 
-	@Bean
-	public AuditorAware<User> auditor() {
-		return () -> Optional.ofNullable(SecurityContextHolder.getContext())
-				.map(SecurityContext::getAuthentication)
-				.filter(Authentication::isAuthenticated)
-				.map(Authentication::getPrincipal)
-				.map(User.class::cast);
-	}
+  @Bean
+  public AuditorAware<User> auditor() {
+    return () -> Optional.ofNullable(SecurityContextHolder.getContext())
+        .map(SecurityContext::getAuthentication)
+        .filter(Authentication::isAuthenticated)
+        .map(Authentication::getPrincipal)
+        .map(User.class::cast);
+  }
 }

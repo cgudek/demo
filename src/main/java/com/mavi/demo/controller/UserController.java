@@ -2,10 +2,11 @@ package com.mavi.demo.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mavi.demo.dto.UserDTO;
+import com.mavi.demo.model.User;
 import com.mavi.demo.repository.UserRepository;
 import com.mavi.demo.service.ObjectMappingService;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,14 @@ public class UserController {
     }).collect(Collectors.toList()), HttpStatus.OK);
   }
 
-  @GetMapping("/listAllUsers")
-  public ResponseEntity<List<String>> listAllUsers() {
-    return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-  }
-
   @GetMapping("/getUser/{userName}")
   public ResponseEntity<UserDTO> getUser(@PathVariable("userName") String userName) throws JsonProcessingException {
-    return new ResponseEntity<>((UserDTO) om.mapToObject(om.writeValueAsString(userRepository.findByUsername(userName)),
+
+    Optional<User> user = userRepository.findByUsername(userName);
+    if (user.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User can not found.");
+    }
+    return new ResponseEntity<>((UserDTO) om.mapToObject(om.writeValueAsString(user.get()),
         UserDTO.class), HttpStatus.OK);
   }
 

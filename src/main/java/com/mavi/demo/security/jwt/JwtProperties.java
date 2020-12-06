@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class JwtProperties {
 
   private String secretKey = "mavidevsecret";
-
   private long validityInMs = 3600000;
+
 }

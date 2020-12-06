@@ -33,7 +33,7 @@ public class AuthenticationController {
   UserRepository userRepository;
 
   @PostMapping("/signIn")
-  public ResponseEntity signIn(@RequestBody AuthenticationRequestDTO data) {
+  public ResponseEntity<Map<Object, Object>> signIn(@RequestBody AuthenticationRequestDTO data) {
 
     try {
       String username = data.getUsername();
@@ -55,7 +55,7 @@ public class AuthenticationController {
   }
 
   @PostMapping("/refreshToken")
-  public ResponseEntity refreshToken(@RequestBody RefreshTokenRequestDTO data) {
+  public ResponseEntity<Map<Object, Object>> refreshToken(@RequestBody RefreshTokenRequestDTO data) {
 
     try {
       String username = data.getUsername();
