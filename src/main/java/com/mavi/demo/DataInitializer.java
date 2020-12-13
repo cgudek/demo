@@ -23,8 +23,8 @@ public class DataInitializer implements CommandLineRunner {
   public void run(String... args) throws Exception {
 
     userRepository.save(User.builder()
-        .username("user")
-        .password(this.passwordEncoder.encode("password"))
+        .username("user@user.com")
+        .password(this.passwordEncoder.encode("user"))
         .name("user_mavi")
         .surname("user_dev")
         .addressDetail("atasehir")
@@ -35,7 +35,7 @@ public class DataInitializer implements CommandLineRunner {
     );
 
     userRepository.save(User.builder()
-        .username("admin")
+        .username("admin@admin.com")
         .password(this.passwordEncoder.encode("admin"))
         .name("admin_mavi")
         .surname("admin_dev")
